@@ -1,12 +1,23 @@
 # Examples: Planning with Files in Action
 
+## Directory Convention
+
+Before each task:
+1. Create `agent_planning_with_files_cache/`
+2. If `.gitignore` exists, add `agent_planning_with_files_cache/`
+3. Create a task subdirectory named `<YYYYMMDD>-<HHMM>-<short-task>`
+
+Each example below names its task directory (TASK_DIR).
+
 ## Example 1: Research Task
 
 **User Request:** "Research the benefits of morning exercise and write a summary"
 
+**Task directory (TASK_DIR):** `agent_planning_with_files_cache/20250103-0930-morning-exercise`
+
 ### Loop 1: Create Plan
 ```bash
-Write task_plan.md
+Write TASK_DIR/task_plan.md
 ```
 
 ```markdown
@@ -32,24 +43,24 @@ Create a research summary on the benefits of morning exercise.
 
 ### Loop 2: Research
 ```bash
-Read task_plan.md           # Refresh goals
+Read TASK_DIR/task_plan.md           # Refresh goals
 WebSearch "morning exercise benefits"
-Write notes.md              # Store findings
-Edit task_plan.md           # Mark Phase 2 complete
+Write TASK_DIR/notes.md              # Store findings
+Edit TASK_DIR/task_plan.md           # Mark Phase 2 complete
 ```
 
 ### Loop 3: Synthesize
 ```bash
-Read task_plan.md           # Refresh goals
-Read notes.md               # Get findings
-Write morning_exercise_summary.md
-Edit task_plan.md           # Mark Phase 3 complete
+Read TASK_DIR/task_plan.md           # Refresh goals
+Read TASK_DIR/notes.md               # Get findings
+Write TASK_DIR/morning_exercise_summary.md
+Edit TASK_DIR/task_plan.md           # Mark Phase 3 complete
 ```
 
 ### Loop 4: Deliver
 ```bash
-Read task_plan.md           # Verify complete
-Deliver morning_exercise_summary.md
+Read TASK_DIR/task_plan.md           # Verify complete
+Deliver TASK_DIR/morning_exercise_summary.md
 ```
 
 ---
@@ -57,6 +68,8 @@ Deliver morning_exercise_summary.md
 ## Example 2: Bug Fix Task
 
 **User Request:** "Fix the login bug in the authentication module"
+
+**Task directory (TASK_DIR):** `agent_planning_with_files_cache/20250103-1015-fix-login-bug`
 
 ### task_plan.md
 ```markdown
@@ -94,6 +107,8 @@ Identify and fix the bug preventing successful login.
 ## Example 3: Feature Development
 
 **User Request:** "Add a dark mode toggle to the settings page"
+
+**Task directory (TASK_DIR):** `agent_planning_with_files_cache/20250103-1100-dark-mode-toggle`
 
 ### The 3-File Pattern in Action
 
@@ -160,6 +175,8 @@ File: src/hooks/useTheme.ts
 
 ## Example 4: Error Recovery Pattern
 
+The plan file in this example lives at `TASK_DIR/task_plan.md`.
+
 When something fails, DON'T hide it:
 
 ### Before (Wrong)
@@ -175,7 +192,7 @@ Action: Read config.json  # Another retry
 Action: Read config.json
 Error: File not found
 
-# Update task_plan.md:
+# Update TASK_DIR/task_plan.md:
 ## Errors Encountered
 - config.json not found → Will create default config
 
@@ -195,8 +212,8 @@ Success!
 [Context is getting long...]
 [Original goal might be forgotten...]
 
-→ Read task_plan.md          # This brings goals back into attention!
-→ Now make the decision       # Goals are fresh in context
+→ Read TASK_DIR/task_plan.md          # This brings goals back into attention!
+→ Now make the decision               # Goals are fresh in context
 ```
 
 This is why Manus can handle ~50 tool calls without losing track. The plan file acts as a "goal refresh" mechanism.

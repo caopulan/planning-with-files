@@ -1,12 +1,23 @@
 # 示例：文件化规划的实际使用
 
+## 目录约定
+
+每个任务开始前：
+1. 创建 `agent_planning_with_files_cache/`
+2. 如有 `.gitignore`，加入 `agent_planning_with_files_cache/`
+3. 在该目录下创建任务子目录 `<YYYYMMDD>-<HHMM>-<short-task>`
+
+以下示例会注明各自的任务目录（TASK_DIR）。
+
 ## 示例 1：研究任务
 
 **用户请求：** “研究晨间运动的益处并写一份摘要”
 
+**任务目录（TASK_DIR）：** `agent_planning_with_files_cache/20250103-0930-morning-exercise`
+
 ### 循环 1：创建计划
 ```bash
-写入 task_plan.md
+写入 TASK_DIR/task_plan.md
 ```
 
 ```markdown
@@ -32,24 +43,24 @@
 
 ### 循环 2：研究
 ```bash
-读取 task_plan.md           # 刷新目标
+读取 TASK_DIR/task_plan.md           # 刷新目标
 WebSearch "晨间运动益处"
-写入 notes.md              # 保存发现
-编辑 task_plan.md           # 标记阶段 2 完成
+写入 TASK_DIR/notes.md              # 保存发现
+编辑 TASK_DIR/task_plan.md           # 标记阶段 2 完成
 ```
 
 ### 循环 3：综合
 ```bash
-读取 task_plan.md           # 刷新目标
-读取 notes.md               # 获取发现
-写入 morning_exercise_summary.md
-编辑 task_plan.md           # 标记阶段 3 完成
+读取 TASK_DIR/task_plan.md           # 刷新目标
+读取 TASK_DIR/notes.md               # 获取发现
+写入 TASK_DIR/morning_exercise_summary.md
+编辑 TASK_DIR/task_plan.md           # 标记阶段 3 完成
 ```
 
 ### 循环 4：交付
 ```bash
-读取 task_plan.md           # 确认完成
-交付 morning_exercise_summary.md
+读取 TASK_DIR/task_plan.md           # 确认完成
+交付 TASK_DIR/morning_exercise_summary.md
 ```
 
 ---
@@ -57,6 +68,8 @@ WebSearch "晨间运动益处"
 ## 示例 2：修复 Bug 任务
 
 **用户请求：** “修复认证模块中的登录 Bug”
+
+**任务目录（TASK_DIR）：** `agent_planning_with_files_cache/20250103-1015-fix-login-bug`
 
 ### task_plan.md
 ```markdown
@@ -94,6 +107,8 @@ WebSearch "晨间运动益处"
 ## 示例 3：功能开发
 
 **用户请求：** “在设置页添加深色模式开关”
+
+**任务目录（TASK_DIR）：** `agent_planning_with_files_cache/20250103-1100-dark-mode-toggle`
 
 ### 三文件模式实战
 
@@ -160,6 +175,8 @@ WebSearch "晨间运动益处"
 
 ## 示例 4：错误恢复模式
 
+示例中的计划文件位于 `TASK_DIR/task_plan.md`。
+
 当出现失败时，不要隐藏：
 
 ### 之前（错误）
@@ -175,7 +192,7 @@ WebSearch "晨间运动益处"
 操作：读取 config.json
 错误：未找到文件
 
-# 更新 task_plan.md：
+# 更新 TASK_DIR/task_plan.md：
 ## 遇到的错误
 - config.json 未找到 → 将创建默认 config
 
@@ -195,8 +212,8 @@ WebSearch "晨间运动益处"
 [上下文越来越长...]
 [原始目标可能已被遗忘...]
 
-→ 读取 task_plan.md          # 把目标带回注意力！
-→ 现在再做决定                 # 目标在上下文中是最新的
+→ 读取 TASK_DIR/task_plan.md          # 把目标带回注意力！
+→ 现在再做决定                         # 目标在上下文中是最新的
 ```
 
 这就是 Manus 能在 ~50 次工具调用后仍不迷失的原因。计划文件充当“目标刷新”的机制。
