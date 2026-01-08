@@ -7,6 +7,11 @@ A Claude Code skill that transforms your workflow to use persistent markdown fil
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills)
 
+## Differences from official repository
+Due to customized demands, I make several changes:
+- [x] Chinese version of this skill (`planning-with-files-zh`) to produce Chinese documents.
+- [x] Save task-related documents in `./agent_planing_with_files_cache/<YYYYMMDD>-<HHMM>-<short-task>`.
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=OthmanAdi/planning-with-files&type=Date)](https://star-history.com/#OthmanAdi/planning-with-files&Date)
